@@ -41,15 +41,3 @@ A template for Django project
 
 6. Створення нового проекту Django
    -
-
-[//]: # (      ```bash)
-
-[//]: # (         django-admin startproject <найменування_сайту> .)
-
-[//]: # (      ```)
-
-[//]: # (      ```bash)
-
-[//]: # (         python manage.py startapp <назва_додатку>)
-
-[//]: # (      ```)
