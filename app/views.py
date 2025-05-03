@@ -2,8 +2,11 @@ from django.shortcuts import render
 
 from .forms import PromptForm
 
+from project.settings import API_KEY
+
 import openai
-openai.api_key = ''
+# openai.api_key = ''
+client = openai.OpenAI(api_key=API_KEY)
 
 # Create your views here.
 def home(request):
@@ -17,7 +20,7 @@ def home(request):
             prompt = form.cleaned_data['prompt']
 
 
-            completion = openai.OpenAI().chat.completions.create(
+            completion = client.chat.completions.create(
                 model="gpt-4.1",
                 messages=[
                     {"role": "developer", "content": "You are a helpful assistant."},
@@ -25,8 +28,23 @@ def home(request):
                 ]
             )
 
-            response_text = completion.choices[0].message
+            response_text = completion.choices[0].message.content
 
+            # image_result = client.images.generate(
+            #     model="dall-e-3",
+            #     prompt=prompt
+            # )
+            #
+            # response_image = image_result.data[0].url
+
+            # model "gpt-image-1"
+            image_result = client.images.generate(
+                model="gpt-image-1",
+                prompt=prompt
+            )
+
+            image_base64 = image_result.data[0].b64_json
+            response_image = image_base64.b64decode(image_base64)
     else:
         form = PromptForm()
 
