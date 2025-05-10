@@ -8,10 +8,14 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+<!--    <input type="checkbox" name="text" value="yes"> Generate text?-->
+<!--    <input type="checkbox" name="image" value="yes"> Generate image?-->
     <button type="submit">Відправити</button>
   </form>
 
+
   {% if response_text %}
+
     <h2>Відповідь:</h2>
     <p>{{ response_text }}</p>
   {% endif %}

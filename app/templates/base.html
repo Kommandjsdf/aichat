@@ -20,6 +20,14 @@
         </nav>
     </div>
 
+    <hr>
+    {% if user.is_authenticated %}
+        Hello, {{ user.username }} | <a href="{% url 'logout' %}">Log Out</a>
+    {% else %}
+        <a href="{% url 'login' %}">Sign In</a> | <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+    <hr>
+
     {% block content %}{% endblock %}
 
 
