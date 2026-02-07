@@ -1,7 +1,6 @@
-from idlelib.query import Query
-
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from .models import QueryHistory
 
 from .forms import PromptForm
 
@@ -13,14 +12,15 @@ client = openai.OpenAI(api_key=API_KEY)
 
 # Create your views here.
 def home(request):
-    if request.user.is_autenticated:
-        QueryHistory.objects.create(
-            user = request.user,
-            query = query,
-            response_text = None,
-            response_image = None,
-        )
-
+    # if request.user.is_authenticated:
+    #     QueryHistory.objects.create(
+    #         user = request.user,
+    #         query = query,
+    #         response_text = None,
+    #         response_image = None,
+    #     )
+    response_text = None
+    response_image = None
     if request.method == 'POST':
         # generate_text = request.POST.get("text_", "no")
         # generate_image = request.POST.get("image_", "no")
@@ -62,7 +62,7 @@ def home(request):
     else:
         form = PromptForm()
 
-    return render(request, 'home.html', {
+    return render(request, 'home.html',  {
         'form':form,
         'response_text':response_text,
         'response_image':response_image,
